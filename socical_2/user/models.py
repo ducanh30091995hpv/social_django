@@ -26,6 +26,7 @@ class user_profile(models.Model):
         cursor = connection.cursor()
         cursor.execute("SELECT socialaccount_socialaccount.provider, socialaccount_socialaccount.id, socialaccount_socialtoken.token FROM socialaccount_socialaccount JOIN socialaccount_socialtoken ON socialaccount_socialaccount.id = socialaccount_socialtoken.account_id WHERE user_id =" + str(user_logged_accounts))
         data1 = cursor.fetchall()
+        
         return data1
     
     
