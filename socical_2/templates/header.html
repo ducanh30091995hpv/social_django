@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title> Bulkit :: Home</title>
+    <link rel="icon" type="image/png" href="https://bulkit.cssninja.io/assets/img/favicon.png" />
+
+    <!--Core CSS -->
+    <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mapbox-gl.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core.css' %}">
+</head>
+
+<body class="is-theme-core">
+
+    <div class="pageloader">
+    </div>
+    <div class="infraloader is-active"></div>
+    <!-- Fullheight Parallax Hero -->
+    <div class="hero type-1 parallax is-cover is-relative is-fullheight" data-background="https://via.placeholder.com/1920x1280" data-color="#545375" data-color-opacity="0.7" data-demo-background="/https://bulkit.cssninja.io/assets/img/demo/hero-25.jpg" data-page-theme="teal">
+        <!--Navbar-->
+        <nav class="navbar navbar-wrapper navbar-fade navbar-light is-transparent">
+            <div class="container">
+                <!-- Brand -->
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img class="light-logo" src="https://bulkit.cssninja.io/assets/img/logos/logo/bulkit-white.svg" alt="">
+                        <img class="dark-logo switcher-logo" src="https://bulkit.cssninja.io/assets/img/logos/logo/bulkit-core.svg" alt="">
+                    </a>
+
+                    <!-- Sidebar Trigger -->
+                    <a id="navigation-trigger" class="navbar-item hamburger-btn" href="javascript:void(0);">
+                        <span class="menu-toggle">
+                            <span class="icon-box-toggle">
+                                <span class="rotate">
+                                    <i class="icon-line-top"></i>
+                                    <i class="icon-line-center"></i>
+                                    <i class="icon-line-bottom"></i>
+                                </span>
+                        </span>
+                        </span>
+                    </a>
+
+                    <!-- Responsive toggle -->
+                    <div class="custom-burger" data-target="">
+                        <a id="" class="responsive-btn" href="javascript:void(0);">
+                            <span class="menu-toggle">
+                                <span class="icon-box-toggle">
+                                    <span class="rotate">
+                                        <i class="icon-line-top"></i>
+                                        <i class="icon-line-center"></i>
+                                        <i class="icon-line-bottom"></i>
+                                    </span>
+                            </span>
+                            </span>
+                        </a>
+                    </div>
+                    <!-- /Responsive toggle -->
+                </div>
+
+                <!-- Navbar menu -->
+                <div class="navbar-menu">
+                    <!-- Navbar Start -->
+                    <div class="navbar-start">
+                        <!-- Navbar item -->
+                        <a class="navbar-item is-slide scroll-link" href="#">
+                                Event
+                            </a>
+                        <!-- Navbar item -->
+                        <a class="navbar-item is-slide scroll-link" href="#">
+                                Attendees
+                            </a>
+                        <!-- Navbar item -->
+                        <a class="navbar-item is-slide scroll-link" href="#">
+                                Exhibitions
+                            </a>
+                    </div>
+
+                    <!-- Navbar end -->
+                    <div class="navbar-end">
+                        <!-- Signup button -->
+
+                        {% if user.is_authenticated %}
+                        <div class="navbar-item is-button">
+                            <!-- Modal trigger -->
+                            <a href="{% url 'user-logout' %}" class="button button-cta btn-align primary-btn raised">{{ _('Xin Chào') }} {{ user.last_name }} {{ user.first_name }}..Thoát</a>
+                            <!-- /Modal trigger -->
+                        </div>
+                        {% else %}
+                        <div class="navbar-item is-button">
+                            <!-- Modal trigger -->
+                            <a class="button button-signup btn-outlined is-bold btn-align light-btn raised" href="{% url 'user-register' %}">Đăng Ký</a>
+                            <!-- /Modal trigger -->
+                        </div>
+
+                        <div class="navbar-item is-button">
+
+                            <!-- Modal trigger -->
+                            <a class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="vertical-form-modal">Đăng Nhập</a>
+                            <!-- /Modal trigger -->
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--Shape-->
+        <img class="hero-shape-commerce" src="https://bulkit.cssninja.io/assets/img/graphics/legacy/cut-shape-v3.svg" alt="" />
+
+        <!-- Hero caption -->
+        <div id="main-hero" class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-8 is-offset-2 has-text-centered">
+                        <h2 class="subtitle is-4 primary-text pt-4">SEPTEMBER 30, 2021</h2>
+                        <h1 class="parallax-hero-title is-smaller light-text">
+                            The State of Tech Branding Summit 2021.
+                        </h1>
+
+                        <div id="countdown" class="countdown is-light">
+                            <ul>
+                                <li><span id="days"></span>days</li>
+                                <li><span id="hours"></span>Hours</li>
+                                <li><span id="minutes"></span>Minutes</li>
+                                <li><span id="seconds"></span>Seconds</li>
+                            </ul>
+                        </div>
+                        <br />
+                        <p class="has-text-centered is-centered buttons">
+                            <a href="#start" class="
+                        button button-cta
+                        btn-align
+                        primary-btn
+                        z-index-2
+                        scroll-link
+                      ">
+                                    Buy Tickets
+                                </a>
+                            <a href="#" class="button button-cta btn-align z-index-2">
+                                    Learn More
+                                </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

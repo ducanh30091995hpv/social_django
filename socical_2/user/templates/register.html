@@ -1,0 +1,111 @@
+{% load socialaccount %} {% include "header.html" %}
+
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+
+<div class="auth-outer">
+    <div class="auth-box shadow">
+        <div class="form-wrapper is-active">
+            <div class="register">
+                <div class="header">
+                    <h2 class="title is-4">{{ dang_ky }}</h2>
+                </div>
+                <div class="item-list">
+                    <div class="item shadow">
+                        <a href="{% provider_login_url 'google' method='oauth2' %}"><i class="fa fa-google"></i></a>
+                        <a href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fa fa-facebook"></i></a>
+                        <a href="{% provider_login_url 'linkedin_oauth2' method='oauth2' %}"><i class="fa fa-linkedin"></i></a>
+
+                    </div>
+                </div>
+                <div class="body">
+                    <form action="{% url 'user-register' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Username" name="username" />
+                                <div class="form-icon">
+                                    <i class="sl sl-icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Email" name="email" />
+                                <div class="form-icon">
+                                    <i class="sl sl-icon-envelope-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                        {% if err_user_email %}
+                        <div class="field">
+                            <div class="control">
+                                {{ err_user_email }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="field">
+                            <div class="control">
+                                <input type="password" class="input" placeholder="Password" name="password" />
+                                <div class="form-icon">
+                                    <i class="sl sl-icon-lock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <button type="submit" class="button primary-btn raised is-rounded is-bold">
+                                {{ dang_ky }}
+                                </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="login">
+                <div class="header">
+                    <h2 class="title is-4">{{ dang_nhap }}</h2>
+                </div>
+                <div class="item-list">
+                    <div class="item shadow">
+                        <a href="{% provider_login_url 'google' method='oauth2' %}"><i class="fa fa-google"></i></a>
+                        <a href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fa fa-facebook"></i></a>
+                        <a href="{% provider_login_url 'linkedin_oauth2' method='oauth2' %}"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Email" />
+                                <div class="form-icon">
+                                    <i class="sl sl-icon-envelope-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input type="password" class="input" placeholder="Password" />
+                                <div class="form-icon">
+                                    <i class="sl sl-icon-lock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="button primary-btn raised is-rounded is-bold">
+                                {{ dang_nhap }}
+                            </button>
+                        <a href="#" class="forgot-password"> Forgot Password? </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-box">
+            <h3 class="title is-light">{{ text_1 }}</h3>
+            <button type="button" class="button action-btn is-rounded">
+                    {{ dang_nhap }}
+                </button>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

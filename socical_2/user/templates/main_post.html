@@ -1,0 +1,202 @@
+{% load static %} {% load socialaccount %} {% include "header.html" %} {% include "social_main_user.html" %}
+
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<div class="section is-app-grey">
+    <div class="container">
+        <div class="field">
+            <div class="control is-combo">
+                <div class="combo-label">Chọn Trang Publisher</div>
+                <div class="stacked-combo-box has-rounded-images">
+                    <div class="box-inner">
+                        <div class="combo-item">
+                            <img id="img-placeholder" src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/avatar.png" alt="" />
+                            <span class="selected-item">Who will participate?</span>
+                        </div>
+                    </div>
+                    <div class="box-chevron">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </div>
+                    <div class="box-dropdown">
+                        <div class="dropdown-inner has-slimscroll">
+                            <ul>
+                                <li data-skill="javascript-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/ray.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Jeff Stockton</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="angular-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/melany.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Melany Smith</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="reactjs-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/helen.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Helen Miller</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="vuejs-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/kareem.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Kareem Jabbar</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="nodejs-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/terry.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Terry Daniels</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="android-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/elie.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Elie Brock</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="swift-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/nick.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Nick Schwartz</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="wordpress-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/lakisha.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Lakisha Williams</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                                <li data-skill="laravel-skill">
+                                    <span class="item-icon">
+                            <img
+                              src="https://via.placeholder.com/150x150"
+                              data-demo-src="assets/img/avatars/alan.jpg"
+                              alt=""
+                            />
+                          </span>
+                                    <span class="item-name">Alan Maynard</span>
+                                    <span class="checkmark">
+                            <i class="material-icons">done</i>
+                          </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control datepicker-control has-icons-right">
+                <input data-toggle="datepicker" type="text" class="input is-medium" placeholder="select a date ..." />
+                <span class="icon is-right">
+              <i class="im im-icon-Calendar-4"></i>
+            </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control has-icons-left">
+                <input type="text" id="is-timepicker" class="input is-medium" />
+                <span class="icon is-left is-medium">
+          <i class="sl sl-icon-clock"></i>
+        </span>
+            </div>
+        </div>
+
+        <div class="control-material is-primary">
+            <input class="material-input" type="text" required />
+            <span class="material-highlight"></span>
+            <span class="bar"></span>
+            <label>Tiêu Đề</label>
+        </div>
+
+        <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+        <script>
+            // Replace the <textarea id="editor1"> with a CKEditor 4
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1');
+            CKEDITOR.config.extraPlugins = 'emoji';
+        </script>
+
+        <div class="section-wrapper">
+            <div class="uploader-controls has-text-right animated preFadeInUp fadeInUp">
+                <input type="file" name="thumbnails" />
+            </div>
+        </div>
+
+        <div class="control-material is-primary">
+            <input class="material-input" type="text" required />
+            <span class="material-highlight"></span>
+            <span class="bar"></span>
+            <label>Chèn Link</label>
+        </div>
+
+        <div class="control">
+            <div class="bulma-tags">
+                <input class="input" type="tags" placeholder="Add Tag" value="" />
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{% include "footer.html" %}

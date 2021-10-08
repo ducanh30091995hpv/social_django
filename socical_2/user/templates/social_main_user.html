@@ -1,0 +1,22 @@
+{% load socialaccount %}
+
+<div class="profile-header">
+    <div class="profile-header-inner">
+        <div class="profile-avatar">
+            <img class="avatar" src="{{ user_2.profile_image.url }}" alt="" data-demo-src="{{ user_2.profile_image.url }}" />
+            <h2 class="title is-4 is-narrow">{{ user_1.last_name }} {{ user_1.first_name }}</h2>
+            <p class="subtitle is-6">{{ user_1.username }}</p>
+        </div>
+        <div class="tabs is-centered">
+            <ul>
+                {% for v, o in social %}
+                <li class="{% for k in account_provider %} {% if k.provider|stringformat:'s' == v|stringformat:'s' %} is-active {% endif %} {% endfor %}">
+                    <a href="/user/accounts/{{ v }}/login/?process=connect&next={{ request.path }}" class="button-inner">
+                        <i class="{{ o }}"></i>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

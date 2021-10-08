@@ -1,0 +1,130 @@
+{% include "header.html" %} {% include "social_main_user.html" %}
+
+
+<div class="section is-app-grey">
+    <div class="container">
+        <!--Wrapper-->
+        <div class="profile-wrapper">
+            <div class="account-form">
+                <form action="{% url 'update-user' %}" method="POST" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="form-inner">
+                        <div class="columns is-multiline">
+                            <div class="column is-12">
+                                <h4 class="form-section-title">Thông Tin Chi Tiết</h4>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="First Name" name="first_name" value="{{ user_1.first_name }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-user"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Last Name" name="last_name" value="{{ user_1.last_name }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-user"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Email address" name="email" value="{{ user_1.email }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-envelope-open"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Số Điện Thoại" name="phone" value="{{ user_2.phone }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-phone"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Role" name="username" value="{{ user_1.username }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-user"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Địa Chỉ" name="address" value="{{ user_2.address }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-map"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-12">
+                                <h4 class="form-section-title mt-4">Thay Đổi Ảnh Đại Diện</h4>
+                            </div>
+
+                            <div class="column is-12">
+                                <div class="section-wrapper">
+                                    <div class="uploader-controls animated preFadeInUp fadeInUp">
+                                        <input type="file" name="fielduploader" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-12">
+                                <h4 class="form-section-title mt-4">Thay Đổi Mật Khẩu</h4>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="password" placeholder="Password" name="password1" value="{{ user_1.password }}" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-lock"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="password" name="password2" placeholder="Repeat Password" />
+                                        <span class="icon is-small is-left">
+                          <i class="sl sl-icon-lock"></i>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <div class="buttons is-centered">
+                                        <button type="submit" class="button form-button primary-btn raised">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

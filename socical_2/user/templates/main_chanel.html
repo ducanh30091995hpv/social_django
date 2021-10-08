@@ -1,0 +1,297 @@
+{% include "header.html" %} {% include "social_main_user.html" %}
+
+<div class="section is-app-grey">
+    <div class="container">
+        <!--Wrapper-->
+        <div class="account-orders">
+            <div class="flex-table">
+                <!--Table item-->
+                {% for i in page_fb.data %}
+                <div class="flex-table-item">
+                    <div class="flex-table-cell is-meta" data-th="Status">
+                        <div class="pushed-mobile is-full has-text-right">
+                            <img src="{{i.picture.data.url}}" alt="{{ i.name }}">
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="ID">
+                        <div class="meta pushed-mobile">
+                            <span>Tên Page</span>
+                            <span>{{ i.name }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Quantity">
+                        <div class="meta pushed-mobile">
+                            <span>ID Page</span>
+                            <span>{{ i.id }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Date">
+                        <div class="meta pushed-mobile">
+                            <span>Danh Mục Page</span>
+                            <span>{{ i.category }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="#" class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="card-modal">Đăng Bài</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Quản Lý Bài Viết</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Xem Page</a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="flex-table-item">
+                    <div class="flex-table-cell is-meta" data-th="Status">
+                        <div class="pushed-mobile is-full has-text-right">
+                            <img src="https://media-exp1.licdn.com/dms/image/C5603AQG3dglScRPEtg/profile-displayphoto-shrink_100_100/0/1599209993063?e=1638403200&v=beta&t=mZeaUEP2A0Uomxb7LxHRh0Sh_gJmj3nRixbS4vh9DFU" alt="{{ abc.lastName.localized.en_US }}">
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="ID">
+                        <div class="meta pushed-mobile">
+                            <span>Tên Page</span>
+                            <span>{{ abc.lastName.localized.en_US }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Quantity">
+                        <div class="meta pushed-mobile">
+                            <span>ID Page</span>
+                            <span>{{ abc.id }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Date">
+                        <div class="meta pushed-mobile">
+                            <span>Danh Mục Page</span>
+                            <span>{{ i.category }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="#" class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="card-modal">Đăng Bài</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Quản Lý Bài Viết</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Xem Page</a>
+                    </div>
+                </div>
+
+                <div class="flex-table-item">
+                    <div class="flex-table-cell is-meta" data-th="Status">
+                        <div class="pushed-mobile is-full has-text-right">
+                            <img src="{{ twitter1.profile_image_url_https }}" alt="{{ abc.lastName.localized.en_US }}">
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="ID">
+                        <div class="meta pushed-mobile">
+                            <span>Tên Page</span>
+                            <span>{{ twitter1.name }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Quantity">
+                        <div class="meta pushed-mobile">
+                            <span>ID Page</span>
+                            <span>{{ twitter1.id }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Date">
+                        <div class="meta pushed-mobile">
+                            <span>Danh Mục Page</span>
+                            <span>{{ i.category }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="#" class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="card-modal">Đăng Bài</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Quản Lý Bài Viết</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Xem Page</a>
+                    </div>
+                </div>
+                {% if reddit1.error %} {{ reddit1.error }} {% else %}
+                <div class="flex-table-item">
+                    <div class="flex-table-cell is-meta" data-th="Status">
+                        <div class="pushed-mobile is-full has-text-right">
+                            <img src="{{ reddit1.image }}" alt="{{ reddit1.title }}">
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="ID">
+                        <div class="meta pushed-mobile">
+                            <span>Tên Page</span>
+                            <span>{{ reddit1.title }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Quantity">
+                        <div class="meta pushed-mobile">
+                            <span>ID Page</span>
+                            <span>{{ reddit1.name }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Date">
+                        <div class="meta pushed-mobile">
+                            <span>Danh Mục Page</span>
+                            <span>{{ reddit1.desscription }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="#" class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="card-modal">Đăng Bài</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Quản Lý Bài Viết</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ reddit1.url }}" target="_blank" class="button is-details">Xem Page</a>
+                    </div>
+                </div>
+                {% endif %} {% if pinterest_user.error %} {{ pinterest_user.error }} {% else %}
+                <div class="flex-table-item">
+                    <div class="flex-table-cell is-meta" data-th="Status">
+                        <div class="pushed-mobile is-full has-text-right">
+                            <img src="{{ pinterest_user.image }}" alt="{{ pinterest_user.title }}">
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="ID">
+                        <div class="meta pushed-mobile">
+                            <span>Tên Page</span>
+                            <span>{{ pinterest_user.type }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Quantity">
+                        <div class="meta pushed-mobile">
+                            <span>ID Page</span>
+                            <span>{{ pinterest_user.name }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell is-meta" data-th="Date">
+                        <div class="meta pushed-mobile">
+                            <span>Danh Mục Page</span>
+                            <span>{{ pinterest_user.desscription }}</span>
+                        </div>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="#" class="button button-cta btn-align primary-btn raised modal-trigger" data-modal="card-modal">Đăng Bài</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ i.link }}" target="_blank" class="button is-details">Quản Lý Bài Viết</a>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="">
+                        <a href="{{ pinterest_user.url }}" target="_blank" class="button is-details">Xem Page</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="card-modal" class="modal modal-sm">
+    <div class="modal-background"></div>
+    <div class="modal-card modal-content z-index-101">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Select users</p>
+            <button class="delete is-medium modal-dismiss" aria-label="close"></button>
+        </header>
+        <div class="modal-card-body">
+            <!-- User -->
+            <div class="flex-card light-bordered hover-inset padding-10 mb-10">
+                <div class="content content-flex">
+                    <div class="card-avatar">
+                        <img src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/ben.jpg" />
+                    </div>
+                    <div class="card-name">
+                        <div class="name">Kevin Smith</div>
+                        <div class="position">Software Engineer</div>
+                    </div>
+                    <div class="card-select ml-auto">
+                        <i class="material-icons">done</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User -->
+            <div class="flex-card light-bordered hover-inset padding-10 mb-10">
+                <div class="content content-flex">
+                    <div class="card-avatar">
+                        <img src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/carolin.png" />
+                    </div>
+                    <div class="card-name">
+                        <div class="name">Marjory Cambell</div>
+                        <div class="position">Sales Representative</div>
+                    </div>
+                    <div class="card-select ml-auto">
+                        <i class="material-icons">done</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User -->
+            <div class="flex-card light-bordered hover-inset padding-10 mb-10">
+                <div class="content content-flex">
+                    <div class="card-avatar">
+                        <img src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/kareem.jpg" />
+                    </div>
+                    <div class="card-name">
+                        <div class="name">Kareem Jabbar</div>
+                        <div class="position">Accountant</div>
+                    </div>
+                    <div class="card-select ml-auto">
+                        <i class="material-icons">done</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User -->
+            <div class="flex-card light-bordered hover-inset padding-10 mb-10">
+                <div class="content content-flex">
+                    <div class="card-avatar">
+                        <img src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/melany.jpg" />
+                    </div>
+                    <div class="card-name">
+                        <div class="name">Melany Rogers</div>
+                        <div class="position">Software Engineer</div>
+                    </div>
+                    <div class="card-select ml-auto">
+                        <i class="material-icons">done</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User -->
+            <div class="flex-card light-bordered hover-inset padding-10 mb-10">
+                <div class="content content-flex">
+                    <div class="card-avatar">
+                        <img src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/barry.jpg" />
+                    </div>
+                    <div class="card-name">
+                        <div class="name">Jared Blight</div>
+                        <div class="position">CTO</div>
+                    </div>
+                    <div class="card-select ml-auto">
+                        <i class="material-icons">done</i>
+                    </div>
+                </div>
+            </div>
+            <!-- /User -->
+        </div>
+        <footer class="modal-card-foot">
+            <button class="button is-link modal-dismiss">Close</button>
+            <button class="
+              button
+              btn-align
+              raised
+              accent-btn
+              no-lh
+              modal-dismiss
+              save-btn
+              is-disabled
+            ">
+                Save
+            </button>
+        </footer>
+    </div>
+</div>
+
+{% include "footer.html" %}
