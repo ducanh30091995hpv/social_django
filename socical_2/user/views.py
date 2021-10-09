@@ -15,13 +15,6 @@ from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 import requests
 import base64
 
-from django.db import connection
-
-
-
-
-
-
 # Create your views here.
 
 
@@ -90,7 +83,7 @@ def chanel(request):
         if(i['provider'] == 'linkedin_oauth2'):
             for k in user_profile.get_token_id(i['id']):
                 abc = requests.get('https://api.linkedin.com/v2/me?projection=(picture-url,id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+k.token).json()
-
+                
         if(i['provider'] == 'twitter'):
             token_client_id_twitter = ''
             token_secret_id_twitter = ''
@@ -104,6 +97,7 @@ def chanel(request):
                 'Authorization': 'Basic ' + base64.b64encode(bytes(token_client_id_twitter+':'+token_secret_id_twitter, "utf-8")).decode(),
                 'Content-Type': 'application/x-www-form-urlencoded',
                 }
+                
                 response = requests.request("POST", url, headers=headers, data=payload)
                 
                 url1 = "https://api.twitter.com/1.1/users/show.json?user_id="+i['uid']

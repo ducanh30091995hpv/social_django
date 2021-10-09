@@ -5,6 +5,7 @@ import requests
 from django.db import connection
 import json
 from core import settings
+import base64
 
 
 class user_profile(models.Model):
@@ -17,7 +18,61 @@ class user_profile(models.Model):
         page_fb = requests.get(settings.LINK_API_FB + uid + '/accounts/page_show_list?fields=picture%7Bheight%2Cwidth%2Curl%7D%2Cname%2Caccess_token&access_token=' + token).json()
         return page_fb
 
+    def get_pinterest_page(token):
+        get_user_header = {
+            'Authorization': 'Bearer ' + token
+        } 
+        r = requests.get(settings.LINK_API_PINTEREST + 'user_account', headers=get_user_header)
+
+        return r
     
+    def get_twitter_user(token, uid):
+        for i in user_profile.get_token_twitter('twitter'):
+            abc = [i.secret, i.client_id]
+        headers = {
+            'Authorization': 'Basic ' + base64.b64encode(bytes(abc[1]+':'+abc[0], "utf-8")).decode(),
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }  
+        response = requests.request("POST", settings.LINK_OAUTH_TWITTER, headers=headers, data='grant_type=client_credentials').json()  
+        
+        url1 = settings.LINK_API_TWITTER + "users/show.json?user_id=" + uid
+        headers1 = {
+            'Authorization': 'Bearer '+response['access_token'],
+        }
+        get_data = requests.request("GET", url1, headers=headers1).json()
+        
+        u = [get_data['name'], token, get_data['profile_image_url_https'], 'twitter']
+        
+        return u
+    
+    def get_header_reddit(token):
+        headers = settings.HEADER_REDDIT
+        headers = {**headers, **{'Authorization': f'bearer '+token}}
+        
+        return headers
+    
+    def get_reddit_user(token):
+        headers = user_profile.get_header_reddit(token)
+        try:
+            reddit1 = requests.get('https://oauth.reddit.com/user/adsmovietnam/about', headers=headers).json()  
+            s = reddit1['data']['subreddit']['icon_img']
+            s.rfind("?")
+            reddit12 = [reddit1['data']['subreddit']['display_name'], token, s[:s.rfind("?")], 'reddit']
+        except:
+            reddit12 = []   
+        return reddit12
+        
+    
+    def get_linkedin_user(token):
+        c = requests.get(settings.LINK_API_LINKEDIN + 'me?projection=(picture-url,id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+token).json()
+        name = c['firstName']['localized']['en_US'] + ' ' + c['lastName']['localized']['en_US']
+        image_url = c["profilePicture"]["displayImage~"]["elements"]
+        for i in image_url:
+            for o in i['identifiers']:
+                if(o['identifier']):
+                    image_url_1 = o['identifier']
+        f = [name, token, image_url_1, 'linkedin_oauth2']
+        return f
 
     def get_token_id(account_id):
         get_token = SocialToken.objects.only('token').filter(account_id = account_id)
@@ -34,15 +89,28 @@ class user_profile(models.Model):
 
         array_list = []
         for i in data1:
+            if(i[0] == 'reddit'):
+                reddit_user = user_profile.get_reddit_user(i[3])
+                array_list.append(reddit_user)
+            if(i[0] == 'twitter'):
+                twitter_user = user_profile.get_twitter_user(i[3], i[1])
+                array_list.append(twitter_user)
+            if(i[0] == 'linkedin_oauth2'):
+                linkedin_user = user_profile.get_linkedin_user(i[3])
+                array_list.append(linkedin_user)
+                
+            if(i[0] == 'pinterest'):
+                pinterest_user = user_profile.get_pinterest_page(i[3])
+                b = [pinterest_user.json()['username'], i[3], pinterest_user.json()['profile_image'], 'pinterest']
+                array_list.append(b)
+
             if(i[0] == 'facebook'):
                 fanpage_fb = user_profile.get_facebook_page(i[3], i[1])
-                
                 for i in fanpage_fb['data']:
                     a = [i['name'], i['access_token'], i['picture']['data']['url'], 'facebook']
                     array_list.append(a)
+            
 
-
-        
         return array_list
     
     
