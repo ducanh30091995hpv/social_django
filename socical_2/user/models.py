@@ -17,13 +17,20 @@ class user_profile(models.Model):
     def get_facebook_page(token, uid):
         page_fb = requests.get(settings.LINK_API_FB + uid + '/accounts/page_show_list?fields=picture%7Bheight%2Cwidth%2Curl%7D%2Cname%2Caccess_token&access_token=' + token).json()
         return page_fb
-
-    def get_pinterest_page(token):
+    
+    def get_header_pinterest(token):
         get_user_header = {
             'Authorization': 'Bearer ' + token
-        } 
-        r = requests.get(settings.LINK_API_PINTEREST + 'user_account', headers=get_user_header)
+        }
+        return get_user_header 
+    
+    def get_boards_pinterest(token):
+        r = requests.get(settings.LINK_API_PINTEREST + 'boards', headers=user_profile.get_header_pinterest(token))
+        return r
+        
 
+    def get_pinterest_page(token):
+        r = requests.get(settings.LINK_API_PINTEREST + 'user_account', headers=user_profile.get_header_pinterest(token))
         return r
     
     def get_twitter_user(token, uid):
@@ -61,7 +68,7 @@ class user_profile(models.Model):
         except:
             reddit12 = []   
         return reddit12
-        
+    
     
     def get_linkedin_user(token):
         c = requests.get(settings.LINK_API_LINKEDIN + 'me?projection=(picture-url,id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+token).json()
