@@ -115,6 +115,8 @@ DATABASES = {
 }
 
 
+
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -195,7 +197,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-
+LINK_API_FB = 'https://graph.facebook.com/v12.0/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

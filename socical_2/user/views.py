@@ -204,8 +204,7 @@ def post_bai(request):
     account_provider = SocialAccount.objects.values('provider').filter(user_id = user_logged.id)
     
     data123 = user_profile.get_token_app_accounts_user_logded(user_logged.id)
-    print(data123)
-    
-    return render(request, 'main_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider,})
+
+    return render(request, 'main_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'data123': data123})
 
 
