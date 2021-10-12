@@ -1,0 +1,49 @@
+{% load socialaccount %} {% include "header.html" %}
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+<div class="auth-box shadow">
+	<p class="has-text-centered is-centered buttons">
+		<a href="{% url 'create-share-user' %}" class="button button-cta btn-align primary-btn z-index-2 scroll-link modal-trigger" data-modal="horizontal-form-modal"> Created user </a>
+		<a href="#" class="button button-cta btn-align z-index-2"> Learn More </a>
+	</p>
+	<div class="columns is-vcentered pt-30">
+		<div class="column is-10 is-offset-1">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Code</th>
+						<th>Address</th>
+						<th>Phone</th>
+						<th>Code invite</th>
+						<th>Code Invited</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for data in share_link1 %}
+					<tr>
+						<td>{{ data.id }}</td>
+						<td>
+							<a>{{ data.name }}</a>
+						</td>
+						<td>{{ data.code }}</td>
+						<td>{{ data.address }}</td>
+						<td>{{ data.phone }}</td>
+						<td>{{ data.code_invite }}</td>
+						<td>{{ data.by_invite }}</td>
+						<td>
+							<a href="{% url 'edit-share-user' data.id %}" class="button is-small btn-align accent-btn raised rounded btn-outlined">Edit</a>
+							<a href="{% url 'delete-share-user' data.id %}" class="button is-small btn-align accent-btn raised rounded btn-outlined">Delete</a>
+                            <a href="{% url 'create-short-link' data.id %}" class="button is-small btn-align accent-btn raised rounded btn-outlined">Tạo short link</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% include "footer.html" %}

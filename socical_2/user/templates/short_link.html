@@ -1,0 +1,87 @@
+{% load socialaccount %} {% include "header.html" %}
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+<div class="auth-box shadow">
+	<div class="columns is-vcentered">
+		<div class="column is-6 is-offset-3">
+			<div class="flex-card light-bordered light-raised">
+				<div class="container">
+					<div class="columns has-text-centered mt-60">
+						<div class="column is-8 is-offset-2 is-hero-caption is-centered">
+							<h1 class="title is-1 is-large">Short Link</h1>
+							<h2 class="subtitle is-5 pt-10 body-color">
+								<strong>Đợi để tự động chuyển hướng: <span id="time">Loading...</span></strong>
+							</h2>
+							<div class="buttons">
+								<a class="countView button button-cta is-bold btn-align primary-btn raised scroll-link" data-url="{% url 'real-link' %}"> Chuyển hướng luôn </a>
+							</div>
+							<img src="https://bulkit.cssninja.io/assets/img/graphics/compositions/city-hero.svg" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	let user_code = window.location.href;
+	let url = new URL(user_code);
+	let slug = url.searchParams.get("asmid");
+	let csrfmiddlewaretoken = "{{ csrf_token }}";
+	var data_url = $(".countView").attr("data-url");
+
+	$(".countView").on("click", function () {
+		if (slug == null) {
+			window.location.href = data_url;
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'count-view-short-ly' %}",
+				data: {
+					slug: slug,
+					csrfmiddlewaretoken: csrfmiddlewaretoken,
+					page_link: data_url,
+				},
+				success: function (data) {
+					window.location.href = data;
+				},
+				error: function (data) {
+					window.location.href = data_url;
+				},
+			});
+		}
+	});
+	var time = 1 * 10;
+	setInterval(function () {
+		var seconds = time % 60;
+		var minutes = (time - seconds) / 60;
+		if (seconds.toString().length == 1) {
+			seconds = "0" + seconds;
+		}
+		if (minutes.toString().length == 1) {
+			minutes = "0" + minutes;
+		}
+		document.getElementById("time").innerHTML = 0 + ":" + seconds;
+		time--;
+		if (time == 0) {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'count-view-short-ly' %}",
+				data: {
+					slug: slug,
+					csrfmiddlewaretoken: csrfmiddlewaretoken,
+					page_link: data_url,
+				},
+				success: function (data) {
+					window.location.href = data_url;
+				},
+				error: function () {
+					window.location.href = data_url;
+				},
+			});
+		}
+	}, 1000); 
+</script>
+
+{% include "footer.html" %}

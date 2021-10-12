@@ -1,0 +1,91 @@
+{% load socialaccount %} {% include "header.html" %}
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+<div class="auth-box shadow">
+	<div class="columns is-vcentered">
+		<div class="column is-6 is-offset-3">
+			<div class="flex-card light-bordered light-raised">
+				<div class="container">
+					<div class="columns has-text-centered mt-60">
+						<div class="column is-8 is-offset-2 is-hero-caption is-centered">
+							<h1 class="title is-1 is-large">{{ code_user }}</h1>
+							<h2 class="subtitle is-5 pt-10 body-color">
+								<strong>Đợi để tự động chuyển hướng: <span id="time">Loading...</span></strong>
+							</h2>
+							<div class="buttons">
+								<a class="countView button button-cta is-bold btn-align primary-btn raised scroll-link" data-url="{% url 'real-link' %}"> Chuyển hướng luôn </a>
+							</div>
+							<img src="https://bulkit.cssninja.io/assets/img/graphics/compositions/city-hero.svg" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	{% comment %} setTimeout(function () {
+		let csrfmiddlewaretoken = "{{ csrf_token }}";
+		let code_user = '{{ code_user }}';
+		var data_url = '{{ link_rd }}';
+		var a_url = "{% url 'count-view-short-ly' %}";
+		$.ajax({
+			type: "POST",
+			url: "{% url 'count-view-short-ly' %}",
+			data: {
+				code_user: code_user,
+				csrfmiddlewaretoken: csrfmiddlewaretoken,
+				page_link: data_url,
+			},
+			success: function () {
+				console.log(code_user);
+				return false;
+				window.location.href = data_url;
+			},
+			error: function () {
+				console.log(a_url);
+				return false;
+				window.location.href = data_url;
+			},
+		});
+
+	}, 1000); {% endcomment %}
+</script>
+<script type="text/javascript">
+	var time = 1 * 2;
+	setInterval(function () {
+		let csrfmiddlewaretoken = "{{ csrf_token }}";
+		let slug = "{{ slug }}";
+		var data_url = "{{ link_rd }}";
+		var seconds = time % 60;
+		var minutes = (time - seconds) / 60;
+		if (seconds.toString().length == 1) {
+			seconds = "0" + seconds;
+		}
+		if (minutes.toString().length == 1) {
+			minutes = "0" + minutes;
+		}
+		document.getElementById("time").innerHTML = 0 + ":" + seconds;
+		time--;
+		if (time == 0) {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'count-view-short-ly' %}",
+				data: {
+					slug: slug,
+					csrfmiddlewaretoken: csrfmiddlewaretoken,
+					page_link: data_url,
+				},
+				success: function (data) {
+					window.location.href = data;
+				},
+				error: function () {
+					window.location.href = data_url;
+				},
+			});
+		}
+	}, 1000);
+</script>
+
+{% include "footer.html" %}

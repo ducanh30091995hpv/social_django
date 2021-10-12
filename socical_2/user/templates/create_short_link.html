@@ -1,0 +1,109 @@
+{% load socialaccount %} {% include "header.html" %}
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+<div class="auth-box shadow">
+	<div class="columns is-vcentered">
+		<div class="column is-6 is-offset-3">
+			<div class="flex-card light-bordered light-raised">
+				<div class="card-body">
+					<div class="pb-20">
+						<h3 class="title is-4 is-styled">Tạo Short link</h3>
+					</div>
+					<form action="{% url 'create-share-user' %}" method="POST">
+						{% csrf_token %}
+						<div class="columns pt-10">
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Link share</label>
+										<input class="input is-medium mt-5" type="text" name="link_create" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<input class="input is-medium mt-5" type="hidden" name="code_user" value="{{ data_share_link.code }}" />
+						<div class="columns pt-10">
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<button type="button" id="create_link" class="button btn-align button-cta is-bold no-lh raised primary-btn">Tạo link</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="columns pt-10">
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Kết quả</label>
+										<input class="input is-medium mt-5" type="text" name="link_share" id="link_share" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card-body">
+					<div class="pb-20">
+						<h3 class="title is-4 is-styled">List Short link</h3>
+					</div>
+					<div class="columns is-vcentered pt-30">
+						<div class="column">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Stt</th>
+										<th>Page Link</th>
+										<th>Link Share</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for data in data_share_link_data %}
+									<tr>
+										<td>{{ forloop.counter }}</td>
+										<td>{{ data.page_link }}</td>
+										<td>{{ data.link_share }}</td>
+										<td>
+											<a href="{% url 'delete-short-ly' data.id %}" class="button is-small btn-align accent-btn raised rounded btn-outlined">Delete</a>
+											<a href="javascript:;" data-share="{{ data.code_user }}" data-link="{{ data.page_link }}?asmid={{ data.code_user }}" class="button is-small btn-align accent-btn raised rounded btn-outlined copy-btn">Copy</a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$("#create_link").on("click", function () {
+		let link_create = $("input[name='link_create']").val();
+		let code_user = $("input[name='code_user']").val();
+		let csrfmiddlewaretoken = "{{ csrf_token }}";
+		$.ajax({
+			type: "POST",
+			url: "{% url 'eva-short-link' %}",
+			data: {
+				link_create: link_create,
+				code_user: code_user,
+				csrfmiddlewaretoken: csrfmiddlewaretoken,
+			},
+			success: function (data) {
+				$("#link_share").val(data);
+			},
+			error: function () {
+				window.location.href = data_url;
+			},
+		});
+	});
+	$(".copy-btn").on("click", function () {
+		let code_share = $(this).attr('data-share');
+		alert(code_share);
+	})
+</script>
+{% include "footer.html" %}
