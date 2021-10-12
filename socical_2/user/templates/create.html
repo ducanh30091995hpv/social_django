@@ -1,0 +1,67 @@
+{% load socialaccount %} {% include "header.html" %}
+<div class="pageloader"></div>
+<div class="infraloader is-active"></div>
+<div class="auth-box shadow">
+	<div class="columns is-vcentered">
+		<div class="column is-6 is-offset-3">
+			<div class="flex-card light-bordered light-raised">
+				<div class="card-body">
+					<div class="pb-20">
+						<h3 class="title is-4 is-styled">Tạo User</h3>
+					</div>
+					<form action="{% url 'create-share-user' %}" method="POST">
+						{% csrf_token %}
+						<div class="columns pt-10">
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Fullname</label>
+										<input class="input is-medium mt-5" type="text" name="share_name" />
+									</div>
+								</div>
+							</div>
+                            <div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Invited by</label>
+										<input class="input is-medium mt-5" type="text" name="by_invite" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="columns pt-10">
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Address</label>
+										<input class="input is-medium mt-5" type="text" name="address" />
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<label>Phone</label>
+										<input class="input is-medium mt-5" type="text" name="phone" />
+										<input type="hidden" name="share_user_id" value="1" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<span>
+							{% if err_share_user_id %}
+							<div class="field">
+								<div class="control">{{ err_share_user_id }}</div>
+							</div>
+							{% endif %}
+						</span>
+						<div class="has-text-right">
+							<button type="submit" class="button btn-align button-cta is-bold no-lh raised primary-btn">Create</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% include "footer.html" %}

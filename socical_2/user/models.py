@@ -120,7 +120,25 @@ class user_profile(models.Model):
 
         return array_list
     
-    
+class share_link(models.Model):
+    name = models.TextField()
+    code = models.TextField(unique=True)
+    code_invite = models.TextField(unique=True)
+    by_invite = models.TextField(default='No invite')
+    address = models.TextField()
+    phone = models.CharField(max_length=50)
+
+
+class share_link_page(models.Model):
+    user_id = models.IntegerField()
+    code = models.TextField()
+    page_link = models.TextField()
+    count_view_site = models.IntegerField()
+class create_share_link(models.Model):
+    code_user = models.TextField()
+    page_link = models.TextField()
+    link_share = models.TextField(unique=True)
+    count_view_site = models.IntegerField()
 
     
     
