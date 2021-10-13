@@ -120,6 +120,18 @@ class user_profile(models.Model):
 
         return array_list
     
+
+class user_Post(models.Model):
+    user_id = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    array_app = models.TextField(null=True)
+    array_img = models.TextField(null=True)
+    tag = models.TextField(null=True)
+    link = models.TextField(null=True)
+    date_up = models.CharField(null=True, max_length=255)
+    time_up = models.CharField(null=True, max_length=255)
+    text_body = models.TextField(null=True)
+    title = models.CharField(null=True, max_length=255)
+    
     
 
     

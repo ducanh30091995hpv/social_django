@@ -15,6 +15,11 @@ from core import settings
 from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 import requests
 import base64
+from core import settings
+from werkzeug.utils import secure_filename
+from user.models import user_Post
+
+
 
 # Create your views here.
 
@@ -202,27 +207,29 @@ def post_bai(request):
     return render(request, 'main_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'data123': data123})
 
 def check_post(request):
-    mang_app = []
-    tag_a = request.POST['tags']
-    links = request.POST['links']
-    date1 = request.POST['date1']
-    hour1 = request.POST['hour1']
-    text1 = request.POST['text1']
-    title123 = request.POST['title123']
-    files = request.FILES.getlist('files[]')
-    column1RelArray = json.loads(request.POST['column1RelArray'])
-    
-    for n in range(0, column1RelArray['length']):
-        mang_app.append(column1RelArray[str(n)])
+    if(request.method == "POST"):
+        mang_app = []
+        mang_file = []
+        tag_a = request.POST['tags']
+        links = request.POST['links']
+        date1 = request.POST['date1']
+        hour1 = request.POST['hour1']
+        text1 = request.POST['text1']
+        title123 = request.POST['title123']
+        files = request.FILES.getlist('files[]')
         
-    #if (request.FILES.getlist('fielduploader[]')):
-    #        image = request.FILES.getlist('fielduploader[]')
-    #        user_profile.objects.update(profile_image = image[0])
-    #        fss = FileSystemStorage()
-    #        fss.save(image[0].name, image[0])
+        column1RelArray = json.loads(request.POST['column1RelArray'])
+        for n in range(0, column1RelArray['length']):
+            mang_app.append(column1RelArray[str(n)])
             
-            
-    return HttpResponse()
+        if(files):
+            for i in files:
+                fss = FileSystemStorage()
+                name = fss.save(i.name, i)
+                mang_file.append(fss.url(name)) 
+        return HttpResponse('Add thành công')            
+    else: 
+        return HttpResponse('Lỗi!')
    
     
 
