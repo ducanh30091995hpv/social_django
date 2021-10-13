@@ -6,6 +6,7 @@ from django.db import connection
 import json
 from core import settings
 import base64
+from time import gmtime, strftime
 
 
 class user_profile(models.Model):
@@ -61,7 +62,7 @@ class user_profile(models.Model):
     def get_reddit_user(token):
         headers = user_profile.get_header_reddit(token)
         try:
-            reddit1 = requests.get('https://oauth.reddit.com/user/adsmovietnam/about', headers=headers).json()  
+            reddit1 = requests.get(settings.LINK_API_REDDIT + 'user/adsmovietnam/about', headers=headers).json()  
             s = reddit1['data']['subreddit']['icon_img']
             s.rfind("?")
             reddit12 = [reddit1['data']['subreddit']['display_name'], token, s[:s.rfind("?")], 'reddit']
@@ -71,7 +72,7 @@ class user_profile(models.Model):
     
     
     def get_linkedin_user(token):
-        c = requests.get(settings.LINK_API_LINKEDIN + 'me?projection=(picture-url,id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+token).json()
+        c = requests.get(settings.LINK_API_LINKEDIN + 'me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+token).json()
         name = c['firstName']['localized']['en_US'] + ' ' + c['lastName']['localized']['en_US']
         image_url = c["profilePicture"]["displayImage~"]["elements"]
         for i in image_url:
@@ -122,7 +123,7 @@ class user_profile(models.Model):
     
 
 class user_Post(models.Model):
-    user_id = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     array_app = models.TextField(null=True)
     array_img = models.TextField(null=True)
     tag = models.TextField(null=True)
@@ -131,6 +132,7 @@ class user_Post(models.Model):
     time_up = models.CharField(null=True, max_length=255)
     text_body = models.TextField(null=True)
     title = models.CharField(null=True, max_length=255)
+    create_at = models.DateTimeField(auto_now=strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     
     
 

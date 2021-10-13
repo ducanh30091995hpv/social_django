@@ -206,7 +206,10 @@ def post_bai(request):
 
     return render(request, 'main_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'data123': data123})
 
+
+
 def check_post(request):
+    user_logged = request.user
     if(request.method == "POST"):
         mang_app = []
         mang_file = []
@@ -227,7 +230,10 @@ def check_post(request):
                 fss = FileSystemStorage()
                 name = fss.save(i.name, i)
                 mang_file.append(fss.url(name)) 
-        return HttpResponse('Add thành công')            
+        
+        user_Post.objects.create(array_app = settings.cover_list_to_string(mang_app), array_img = settings.cover_list_to_string(mang_file), tag = tag_a, link = links, date_up = date1, time_up = hour1, text_body = text1, title = title123, user_id_id = user_logged.id)
+        
+        return HttpResponse('Thành công!')            
     else: 
         return HttpResponse('Lỗi!')
    
