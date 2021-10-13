@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile/', views.profile_user, name='user-profile'),
     path('chanels/', views.chanel, name='user-chanel'),
     path('post/', views.post_bai, name='user-post'),
+    path('check_post/', views.check_post, name='check-post-user'),
     path('update/', views.update_user, name='update-user'),
 ]

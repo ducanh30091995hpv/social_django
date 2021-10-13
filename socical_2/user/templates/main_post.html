@@ -1,100 +1,156 @@
 {% load static %} {% load socialaccount %} {% include "header.html" %} {% include "social_main_user.html" %}
 
 <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
-<div class="section is-app-grey">
-    <div class="container">
-        <div class="field">
-            <div class="control is-combo">
+<form id="upload-file" method="post" enctype="multipart/form-data">
+    <div class="section is-app-grey">
+        <div class="container">
+            <div class="field">
+                <div class="control is-combo">
 
-                <div class="stacked-combo-box has-rounded-images">
-                    <div class="box-inner">
-                        <div class="combo-item">
-                            <span class="selected-item">Chọn Trang Publisher</span>
+                    <div class="stacked-combo-box has-rounded-images">
+                        <div class="box-inner">
+                            <div class="combo-item">
+                                <span class="selected-item">Chọn Trang Publisher</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="box-chevron">
-                        <i class="material-icons">keyboard_arrow_down</i>
-                    </div>
-                    <div class="box-dropdown">
-                        <div class="dropdown-inner has-slimscroll">
-
-                            <ul>
-                                {% for i in data123 %}
-                                <li data-skill="{{ i.1 }}-skill">
-                                    <span class="item-icon">
+                        <div class="box-chevron">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </div>
+                        <div class="box-dropdown">
+                            <div class="dropdown-inner has-slimscroll">
+                                <ul id="list_app">
+                                    {% for i in data123 %}
+                                    <li data-skill="{{ i.1 }}-skill" attr-app="{{ i.3 }}" attr-token="{{ i.1 }}">
+                                        <span class="item-icon">
                                       <img src="{{ i.2 }}" data-demo-src="{{ i.2 }}" alt="{{ i.0 }}" />
                                     </span>
-                                    <span class="item-name">{{ i.0 }} | {{ i.3|capfirst }}</span>
-                                    <span class="checkmark">
+                                        <span class="item-name">{{ i.0 }} | {{ i.3|capfirst }}</span>
+                                        <span class="checkmark">
                                     <i class="material-icons">done</i>
                                     </span>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control datepicker-control has-icons-right">
-                <input data-toggle="datepicker" type="text" class="input is-medium" placeholder="Hẹn Ngày Đăng ..." />
-                <span class="icon is-right">
+            <div class="field">
+                <div class="control datepicker-control has-icons-right">
+                    <input data-toggle="datepicker" type="text" class="input is-medium" placeholder="Hẹn Ngày Đăng ..." value="" name="date1" />
+                    <span class="icon is-right">
               <i class="im im-icon-Calendar-4"></i>
             </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control has-icons-left">
-                <input type="text" id="is-timepicker" class="input is-medium" />
-                <span class="icon is-left is-medium">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input type="text" id="is-timepicker" class="input is-medium" value="" name="hour1" />
+                    <span class="icon is-left is-medium">
           <i class="sl sl-icon-clock"></i>
         </span>
+                </div>
             </div>
-        </div>
 
-        <div class="control-material is-primary">
-            <input class="material-input" type="text" required />
-            <span class="material-highlight"></span>
-            <span class="bar"></span>
-            <label>Tiêu Đề</label>
-        </div>
-
-        <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-        <script>
-            // Replace the <textarea id="editor1"> with a CKEditor 4
-            // instance, using default configuration.
-            CKEDITOR.replace('editor1');
-            CKEDITOR.config.extraPlugins = 'emoji';
-        </script>
-
-        <div class="section-wrapper">
-            <div class="uploader-controls has-text-right animated preFadeInUp fadeInUp">
-                <input type="file" name="thumbnails" />
+            <div class="control-material is-primary">
+                <input class="material-input" type="text" required name="title123" value="" />
+                <span class="material-highlight"></span>
+                <span class="bar"></span>
+                <label>Tiêu Đề</label>
             </div>
-        </div>
 
-        <div class="control-material is-primary">
-            <input class="material-input" type="text" required />
-            <span class="material-highlight"></span>
-            <span class="bar"></span>
-            <label>Chèn Link</label>
-        </div>
+            <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+            <script>
+                // Replace the <textarea id="editor1"> with a CKEditor 4
+                // instance, using default configuration.
+                CKEDITOR.replace('editor1');
+                CKEDITOR.config.extraPlugins = 'emoji';
+            </script>
 
-        <div class="control">
-            <div class="bulma-tags">
-                <input class="input" type="tags" placeholder="Add Tag" value="" />
+            <div class="section-wrapper">
+                <div class="uploader-controls has-text-right animated preFadeInUp fadeInUp">
+                    <input id="image123" type="file" name="thumbnails" />
+                </div>
             </div>
+
+            <div class="control-material is-primary">
+                <input class="material-input" type="text" required value="" placeholder="Chèn Link" name="chen_link" />
+                <span class="material-highlight"></span>
+                <span class="bar"></span>
+            </div>
+
+            <div class="control">
+                <div class="bulma-tags">
+                    <input class="input" type="tags" placeholder="Add Tag" value="" name="tag" />
+                </div>
+            </div>
+
+
+            <div class="control">
+                <div class="bulma-tags">
+                    <a onclick="submit1(this);" class="button button-cta secondary-btn btn-outlined rounded">Secondary</a>
+                </div>
+            </div>
+            {% csrf_token %}
+
         </div>
-
-
     </div>
-</div>
+</form>
 
 {% include "footer.html" %}
 
 <script>
-    let abc = $('.bulma-tags .input').val()
+    function submit1() {
+        var form_data = new FormData();
+
+        let filedata = $("input[type=file]");
+        let len = filedata[0].files.length;
+        for (i = 0; i < len; i++) {
+            file = filedata[0].files[i];
+            form_data.append("files[]", filedata[0].files[i]);
+        }
+
+
+        let column1RelArray = $('#list_app li').map(function() {
+            if ($(this).attr('class') == 'is-active') {
+                return $(this).attr('attr-app') + '|' + $(this).attr('attr-token');
+            }
+        });
+        form_data.append("column1RelArray", JSON.stringify(column1RelArray));
+
+        let token = $('input[name=csrfmiddlewaretoken]').val();
+        form_data.append("csrfmiddlewaretoken", token);
+
+        let hour1 = $('input[name=hour1]').val();
+        form_data.append("hour1", hour1);
+
+        let date1 = $('input[name=date1]').val();
+        form_data.append("date1", date1);
+
+        let tags = $('input[name=tag]').val();
+        form_data.append("tags", tags);
+
+        let links = $('input[name=chen_link]').val();
+        form_data.append("links", links);
+
+        let text1 = CKEDITOR.instances.editor1.getData();
+        form_data.append("text1", text1);
+
+        let title123 = $('input[name=title123]').val();
+        form_data.append("title123", title123);
+
+        $.ajax({
+            url: '{% url "check-post-user" %}',
+            method: "POST",
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                console.log(data);
+            },
+        })
+    }
 </script>

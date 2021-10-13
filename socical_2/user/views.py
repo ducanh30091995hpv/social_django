@@ -3,11 +3,12 @@
 from allauth import socialaccount
 from allauth.account.utils import user_field
 from django.contrib.auth import authenticate
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.utils.translation import gettext as _
 from .models import user_profile
-
+import json
 from var_dump import var_dump
 from django.core.files.storage import FileSystemStorage
 from core import settings
@@ -169,7 +170,6 @@ def update_user(request):
             fss = FileSystemStorage()
             fss.save(image[0].name, image[0])
         
-        var_dump(first_name + last_name + email + phone + username + address)
         if (first_name):
             User.objects.filter(id = user_logged.id).update(first_name = first_name)
         if (last_name):
@@ -200,5 +200,31 @@ def post_bai(request):
     data123 = user_profile.get_token_app_accounts_user_logded(user_logged.id)
 
     return render(request, 'main_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'data123': data123})
+
+def check_post(request):
+    mang_app = []
+    tag_a = request.POST['tags']
+    links = request.POST['links']
+    date1 = request.POST['date1']
+    hour1 = request.POST['hour1']
+    text1 = request.POST['text1']
+    title123 = request.POST['title123']
+    files = request.FILES.getlist('files[]')
+    column1RelArray = json.loads(request.POST['column1RelArray'])
+    
+    for n in range(0, column1RelArray['length']):
+        mang_app.append(column1RelArray[str(n)])
+        
+    #if (request.FILES.getlist('fielduploader[]')):
+    #        image = request.FILES.getlist('fielduploader[]')
+    #        user_profile.objects.update(profile_image = image[0])
+    #        fss = FileSystemStorage()
+    #        fss.save(image[0].name, image[0])
+            
+            
+    return HttpResponse()
+   
+    
+
 
 
