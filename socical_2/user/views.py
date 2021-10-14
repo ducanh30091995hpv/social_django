@@ -21,6 +21,7 @@ from user.models import user_Post
 
 
 
+
 # Create your views here.
 
 
@@ -236,6 +237,12 @@ def check_post(request):
         return HttpResponse('Thành công!')            
     else: 
         return HttpResponse('Lỗi!')
+    
+
+def manage_post_user(request):
+    return render(request, 'check_post.html',)
+    
+
    
     
 

@@ -14,4 +14,5 @@ urlpatterns = [
     path('post/', views.post_bai, name='user-post'),
     path('check_post/', views.check_post, name='check-post-user'),
     path('update/', views.update_user, name='update-user'),
+    path('managent-post/', views.manage_post_user, name='manage-post'),
 ]
