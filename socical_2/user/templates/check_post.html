@@ -1,103 +1,118 @@
-{% include "header.html" %}
+{% load static %}
 
-<div class="section">
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% include "header.html" %}
+
+
+<section class="ftco-section">
     <div class="container">
 
-        <div class="columns is-vcentered pt-30 pb-60">
-            <div class="column is-10 is-offset-1">
-                <!-- Timeline -->
-                <div class="timeline">
-                    <!-- Timeline item -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon g-item">
-                            <img class="timeline-avatar" src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/carolin.png" />
-                        </div>
-                        <div class="timeline-content">
-                            <div class="content-body">
-                                <div class="timeline-text">
-                                    <div>Marjory Cambell</div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet, vel option latine alterum ut, sed ad ludus saperet nominavi. Te exerci libris blandit qui, quo ei lucilius vulputate.
-                                    </div>
-                                    <span class="timestamp">30 minutes ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Timeline item -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon g-item">
-                            <img class="timeline-avatar" src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/henry.jpg" />
-                        </div>
-                        <div class="timeline-content right">
-                            <div class="content-body">
-                                <div class="timeline-text">
-                                    <div>Henry Rodstein</div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet, vel option latine alterum ut, sed ad ludus saperet nominavi. Te exerci libris blandit qui.
-                                    </div>
-                                    <span class="timestamp">2 hours ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Timeline item -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon g-item">
-                            <img class="timeline-avatar" src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/helen.jpg" />
-                        </div>
-                        <div class="timeline-content">
-                            <div class="content-body">
-                                <div class="timeline-text">
-                                    <div>Helen Miller</div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet, vel option latine alterum ut, sed ad ludus saperet nominavi. Te exerci libris blandit qui, quo ei lucilius vulputate.
-                                    </div>
-                                    <span class="timestamp">Yesterday</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Timeline item -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon g-item">
-                            <img class="timeline-avatar" src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/henry.jpg" />
-                        </div>
-                        <div class="timeline-content right">
-                            <div class="content-body">
-                                <div class="timeline-text">
-                                    <div>Henry Rodstein</div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet, vel option latine alterum ut, sed ad ludus saperet nominavi. Te exerci libris blandit qui.
-                                    </div>
-                                    <span class="timestamp">2 hours ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Timeline item -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon g-item">
-                            <img class="timeline-avatar" src="https://via.placeholder.com/250x250" alt="" data-demo-src="assets/img/avatars/helen.jpg" />
-                        </div>
-                        <div class="timeline-content">
-                            <div class="content-body">
-                                <div class="timeline-text">
-                                    <div>Helen Miller</div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet, vel option latine alterum ut, sed ad ludus saperet nominavi. Te exerci libris blandit qui, quo ei lucilius vulputate.
-                                    </div>
-                                    <span class="timestamp">Yesterday</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="elegant-calencar d-md-flex">
+                    <div class="wrap-header d-flex align-items-center img" style="background-image: url(images/bg.jpg);">
+                        <p id="reset">Today</p>
+                        <div id="header" class="p-0">
 
+                            <div class="head-info">
+                                <div class="head-month"></div>
+                                <div class="head-day"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="calendar-wrap">
+                        <div class="w-100 button-wrap">
+                            <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>
+                            <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>
+                        </div>
+                        <table id="calendar">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 {% include "footer.html" %}
+
+<script src="https://preview.colorlib.com/theme/bootstrap/calendar-07/js/jquery.min.js"></script>
+<script src="https://preview.colorlib.com/theme/bootstrap/calendar-07/js/popper.js+bootstrap.min.js+main.js.pagespeed.jc.y49NUCeWER.js"></script>
+<script>
+    eval(mod_pagespeed_NLpI8FaOHB);
+</script>
+<script>
+    eval(mod_pagespeed_4ILN6Wloig);
+</script>
+<script>
+    eval(mod_pagespeed_$gk7AfUuGw);
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"></script>

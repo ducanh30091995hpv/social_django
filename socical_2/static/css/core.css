@@ -519,11 +519,6 @@ pre code {
     padding: 0
 }
 
-table td,
-table th {
-    vertical-align: top
-}
-
 table td:not([align]),
 table th:not([align]) {
     text-align: inherit
