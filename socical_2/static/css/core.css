@@ -519,9 +519,14 @@ pre code {
     padding: 0
 }
 
+table td,
+table th {
+    vertical-align: inherit
+}
+
 table td:not([align]),
 table th:not([align]) {
-    text-align: inherit
+    text-align: center
 }
 
 table th {
@@ -41788,7 +41793,7 @@ pre {
 .profile-header .profile-header-inner {
     position: relative;
     text-align: center;
-    padding: 2rem 0 6rem 0
+    padding: 3rem 0 6rem 0
 }
 
 .profile-header .profile-header-inner .profile-avatar {

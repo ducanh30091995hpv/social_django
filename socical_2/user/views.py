@@ -216,7 +216,7 @@ def check_post(request):
         mang_file = []
         tag_a = request.POST['tags']
         links = request.POST['links']
-        date1 = request.POST['date1']
+        date1 = settings.cover_datetime(request.POST['date1'])
         hour1 = request.POST['hour1']
         text1 = request.POST['text1']
         title123 = request.POST['title123']
@@ -240,8 +240,18 @@ def check_post(request):
     
 
 def manage_post_user(request):
-    return render(request, 'check_post.html',)
-    
+    user_logged = request.user
+    user_1 = User.objects.get(id = user_logged.id)
+    user_2 = user_profile.objects.get(profile_user = user_logged.id)
+    social = settings.SOCIAL_ARR
+    account_provider = SocialAccount.objects.values('provider').filter(user_id = user_logged.id)
+    dem = range(0,6)
+    dem2 = range(0,7)
+    data123 = user_profile.get_token_app_accounts_user_logded(user_logged.id)
+    return render(request, 'check_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'dem': dem, 'dem2': dem2, 'data123': data123})
+
+
+
 
    
     

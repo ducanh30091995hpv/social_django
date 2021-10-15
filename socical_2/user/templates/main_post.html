@@ -37,24 +37,6 @@
                 </div>
             </div>
 
-            <div class="field">
-                <div class="control datepicker-control has-icons-right">
-                    <input data-toggle="datepicker" type="text" class="input is-medium" placeholder="Hẹn Ngày Đăng ..." value="" name="date1" />
-                    <span class="icon is-right">
-              <i class="im im-icon-Calendar-4"></i>
-            </span>
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control has-icons-left">
-                    <input type="text" id="is-timepicker" class="input is-medium" value="" name="hour1" />
-                    <span class="icon is-left is-medium">
-          <i class="sl sl-icon-clock"></i>
-        </span>
-                </div>
-            </div>
-
             <div class="control-material is-primary">
                 <input class="material-input" type="text" required name="title123" value="" />
                 <span class="material-highlight"></span>
@@ -124,10 +106,10 @@
         let token = $('input[name=csrfmiddlewaretoken]').val();
         form_data.append("csrfmiddlewaretoken", token);
 
-        let hour1 = $('input[name=hour1]').val();
+        let hour1 = $('input[name=hour1]').val('');
         form_data.append("hour1", hour1);
 
-        let date1 = $('input[name=date1]').val();
+        let date1 = $('input[name=date1]').val('');
         form_data.append("date1", date1);
 
         let tags = $('input[name=tag]').val();
@@ -151,6 +133,6 @@
             success: function(data) {
                 window.location.replace('{% url "user-post" %}');
             },
-        })
+        });
     }
 </script>

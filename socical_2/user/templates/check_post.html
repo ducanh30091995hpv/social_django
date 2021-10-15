@@ -1,11 +1,11 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% include "header.html" %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% include "header.html" %} {% include "social_main_user.html" %}
 
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
 
-<section class="ftco-section">
+<div class="section is-app-grey">
     <div class="container">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="elegant-calencar d-md-flex">
@@ -38,60 +38,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for i in dem %}
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    {% for k in dem2 %}
+                                    <td onclick="abc(this);"></td>
+                                    {% endfor %}
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -99,20 +52,162 @@
             </div>
         </div>
     </div>
-</section>
 
+</div>
 
+<div id="basic-large-modal" class="modal modal-lg">
+    {% csrf_token %}
+    <input id="x" type="hidden" class="input is-medium td-input" readonly="" name="date1">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="flex-card simple-shadow">
+            <div class="card-body">
+                <div class="field">
+                    <div class="control is-combo">
+
+                        <div class="stacked-combo-box has-rounded-images">
+                            <div class="box-inner">
+                                <div class="combo-item">
+                                    <span class="selected-item">Chọn Trang Publisher</span>
+                                </div>
+                            </div>
+                            <div class="box-chevron">
+                                <i class="material-icons">keyboard_arrow_down</i>
+                            </div>
+                            <div class="box-dropdown">
+                                <div class="dropdown-inner has-slimscroll">
+                                    <ul id="list_app">
+                                        {% for i in data123 %}
+                                        <li data-skill="{{ i.1 }}-skill" attr-app="{{ i.3 }}" attr-token="{{ i.1 }}">
+                                            <span class="item-icon">
+                                              <img src="{{ i.2 }}" data-demo-src="{{ i.2 }}" alt="{{ i.0 }}" />
+                                            </span>
+                                            <span class="item-name">{{ i.0 }} | {{ i.3|capfirst }}</span>
+                                            <span class="checkmark">
+                                            <i class="material-icons">done</i>
+                                            </span>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input type="text" id="is-timepicker" class="input is-medium td-input" readonly="" name="hour1" value="">
+                        <span class="icon is-left is-medium"><i class="sl sl-icon-clock"></i></span>
+                    </div>
+                </div>
+                <div class="field">
+                    <textarea name="editor1" id="editor1" rows="10" cols="50"></textarea>
+                    <script>
+                        // Replace the <textarea id="editor1"> with a CKEditor 4
+                        // instance, using default configuration.
+                        CKEDITOR.replace('editor1');
+                        CKEDITOR.config.extraPlugins = 'emoji';
+                        CKEDITOR.config.height = 100;
+                    </script>
+                </div>
+                <div class="field">
+                    <div class="section-wrapper">
+                        <div class="uploader-controls has-text-right animated preFadeInUp fadeInUp">
+                            <input id="image123" type="file" name="thumbnails" />
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <!-- Medium -->
+                        <input class="input is-medium" type="text" placeholder="Tiêu Đề Bài Đăng" name="title123">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <!-- Medium -->
+                        <input class="input is-medium" type="text" placeholder="Link Chèn" name="chen_link">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <div class="bulma-tags">
+                            <input class="input" type="tags" placeholder="Add Tag" value="" name="tag" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-20 has-text-right">
+                    <button onclick="post1();" type="submit" class="button btn-align button-cta no-lh is-bold secondary-btn raised ">
+                            Lập Lịch
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="modal-close is-large is-hidden" aria-label="close"></button>
+</div>
 {% include "footer.html" %}
 
-<script src="https://preview.colorlib.com/theme/bootstrap/calendar-07/js/jquery.min.js"></script>
-<script src="https://preview.colorlib.com/theme/bootstrap/calendar-07/js/popper.js+bootstrap.min.js+main.js.pagespeed.jc.y49NUCeWER.js"></script>
 <script>
-    eval(mod_pagespeed_NLpI8FaOHB);
+    function abc(abc) {
+        let x = $(abc).html() + ' ' + $('.head-month').html();
+        $("#basic-large-modal").addClass('is-active');
+        $("#basic-large-modal .modal-background").addClass('scaleInCircle');
+        $("#basic-large-modal .modal-content").addClass('scaleIn');
+        $("#basic-large-modal button").removeClass('is-hidden');
+        $('#x').val(x);
+
+
+    }
+
+    function post1() {
+        let form_data = new FormData();
+
+        let filedata = $("input[type=file]");
+        let len = filedata[0].files.length;
+        for (i = 0; i < len; i++) {
+            file = filedata[0].files[i];
+            form_data.append("files[]", filedata[0].files[i]);
+        }
+
+        let links = $('input[name=chen_link]').val();
+        form_data.append("links", links);
+
+        let tags = $('input[name=tag]').val();
+        form_data.append("tags", tags);
+
+        let column1RelArray = $('#list_app li').map(function() {
+            if ($(this).attr('class') == 'is-active') {
+                return $(this).attr('attr-app') + '|' + $(this).attr('attr-token');
+            }
+        });
+        form_data.append("column1RelArray", JSON.stringify(column1RelArray));
+
+        let date1 = $('input[name=date1]').val();
+        form_data.append("date1", date1);
+
+        let csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+        form_data.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
+
+        let text1 = CKEDITOR.instances.editor1.getData();
+        form_data.append("text1", text1);
+
+        let title123 = $('input[name=title123]').val();
+        form_data.append("title123", title123);
+
+        let hour1 = $('input[name=hour1]').val();
+        form_data.append("hour1", hour1);
+
+        $.ajax({
+            url: '{% url "check-post-user" %}',
+            method: "POST",
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                window.location.replace('{% url "manage-post" %}');
+            },
+        });
+
+    }
 </script>
-<script>
-    eval(mod_pagespeed_4ILN6Wloig);
-</script>
-<script>
-    eval(mod_pagespeed_$gk7AfUuGw);
-</script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js"></script>

@@ -14,6 +14,8 @@ from pathlib import Path
 
 import os, random, string
 
+from datetime import datetime
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     'sslserver',
     'ckeditor',
     'user',
+
 ]
 
 
@@ -177,7 +180,6 @@ SOCIAL_ARR = (
     ('reddit', 'fa fa-reddit'),
 )
 
-
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['pages_read_engagement', 'pages_manage_posts', 'pages_read_user_content', 'pages_manage_engagement', 'pages_show_list',],
@@ -237,6 +239,9 @@ def randomword(length):
 def cover_list_to_string(s):
     str1 = '|'
     return (str1.join(s))
+
+def cover_datetime(d):
+    return datetime.strptime(d, '%d %B - %Y').strftime('%d/%m/%Y')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

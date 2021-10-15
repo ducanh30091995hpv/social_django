@@ -133,6 +133,8 @@ class user_Post(models.Model):
     text_body = models.TextField(null=True)
     title = models.CharField(null=True, max_length=255)
     create_at = models.DateTimeField(auto_now=strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+    activated = models.BooleanField(default=False)
+    id_app_post = models.TextField(default='')
     
     
 
