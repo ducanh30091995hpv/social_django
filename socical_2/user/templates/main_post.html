@@ -106,12 +106,6 @@
         let token = $('input[name=csrfmiddlewaretoken]').val();
         form_data.append("csrfmiddlewaretoken", token);
 
-        let hour1 = $('input[name=hour1]').val('');
-        form_data.append("hour1", hour1);
-
-        let date1 = $('input[name=date1]').val('');
-        form_data.append("date1", date1);
-
         let tags = $('input[name=tag]').val();
         form_data.append("tags", tags);
 
@@ -125,13 +119,14 @@
         form_data.append("title123", title123);
 
         $.ajax({
-            url: '{% url "check-post-user" %}',
+            url: '{% url "check_post2" %}',
             method: "POST",
             data: form_data,
             processData: false,
             contentType: false,
             success: function(data) {
-                window.location.replace('{% url "user-post" %}');
+                //window.location.replace('{% url "user-post" %}');
+                console.log(data);
             },
         });
     }

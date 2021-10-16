@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'sslserver',
     'ckeditor',
     'user',
+    'django_apscheduler',
 
 ]
 
@@ -247,3 +248,7 @@ def cover_datetime(d):
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds

@@ -239,6 +239,36 @@ def check_post(request):
         return HttpResponse('Lỗi!')
     
 
+def check_post1(request):
+    user_logged = request.user
+    if(request.method == "POST"):
+        mang_app = []
+        mang_file = []
+        tag_a = request.POST['tags']
+        links = request.POST['links']
+
+        text1 = request.POST['text1']
+        title123 = request.POST['title123']
+        files = request.FILES.getlist('files[]')
+        
+        column1RelArray = json.loads(request.POST['column1RelArray'])
+        for n in range(0, column1RelArray['length']):
+            mang_app.append(column1RelArray[str(n)])
+            
+        if(files):
+            for i in files:
+                fss = FileSystemStorage()
+                name = fss.save(i.name, i)
+                mang_file.append(fss.url(name)) 
+            
+        user_Post.objects.create(array_app = settings.cover_list_to_string(mang_app), array_img = settings.cover_list_to_string(mang_file), tag = tag_a, link = links, text_body = text1, title = title123, user_id_id = user_logged.id)
+        
+        return HttpResponse('Thành công')            
+    else: 
+        return HttpResponse('Lỗi!')
+    
+
+        
 def manage_post_user(request):
     user_logged = request.user
     user_1 = User.objects.get(id = user_logged.id)
@@ -248,6 +278,19 @@ def manage_post_user(request):
     dem = range(0,6)
     dem2 = range(0,7)
     data123 = user_profile.get_token_app_accounts_user_logded(user_logged.id)
+    
+    #from apscheduler.schedulers.blocking import BlockingScheduler
+    #from datetime import datetime
+    #  the output of time 
+    #def job():
+    #    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    # BlockingScheduler
+    #scheduler = BlockingScheduler()
+    #scheduler.add_job(job, 'interval', seconds=5)
+    #scheduler.start()
+  
+        
+    
     return render(request, 'check_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'dem': dem, 'dem2': dem2, 'data123': data123})
 
 
