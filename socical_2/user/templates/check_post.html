@@ -106,8 +106,10 @@
                         // Replace the <textarea id="editor1"> with a CKEditor 4
                         // instance, using default configuration.
                         CKEDITOR.replace('editor1');
-                        CKEDITOR.config.extraPlugins = 'emoji';
+                        CKEDITOR.config.extraPlugins = 'emoji,lineheight';
+                        CKEDITOR.config.removePlugins = 'print,flash';
                         CKEDITOR.config.height = 100;
+                        CKEDITOR.config.fontSize_defaultLabel = '16px';
                     </script>
                 </div>
                 <div class="field">

@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'user',
     'django_apscheduler',
+    'clear_cache',
 
 ]
 

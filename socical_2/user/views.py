@@ -98,19 +98,12 @@ def chanel(request):
                 token_client_id_twitter = a.client_id
                 token_secret_id_twitter = a.secret
             for k in user_profile.get_token_id(i['id']):
-                url = "https://api.twitter.com/oauth2/token"
-                payload='grant_type=client_credentials'
-                headers = {
-                'Authorization': 'Basic ' + base64.b64encode(bytes(token_client_id_twitter+':'+token_secret_id_twitter, "utf-8")).decode(),
-                'Content-Type': 'application/x-www-form-urlencoded',
-                }
-                
-                response = requests.request("POST", url, headers=headers, data=payload)
-                
+
                 url1 = "https://api.twitter.com/1.1/users/show.json?user_id="+i['uid']
+
                 payload1={}
                 headers1 = {
-                'Authorization': 'Bearer '+response.json()['access_token'],
+                'Authorization': 'Bearer '+ user_profile.get_bear_token_twitter(token_client_id_twitter, token_secret_id_twitter),
                 }
                 response1 = requests.request("GET", url1, headers=headers1, data=payload1)
                 twitter1 = response1.json()
@@ -278,18 +271,6 @@ def manage_post_user(request):
     dem = range(0,6)
     dem2 = range(0,7)
     data123 = user_profile.get_token_app_accounts_user_logded(user_logged.id)
-    
-    #from apscheduler.schedulers.blocking import BlockingScheduler
-    #from datetime import datetime
-    #  the output of time 
-    #def job():
-    #    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    # BlockingScheduler
-    #scheduler = BlockingScheduler()
-    #scheduler.add_job(job, 'interval', seconds=5)
-    #scheduler.start()
-  
-        
     
     return render(request, 'check_post.html', {'user_1': user_1, 'user_2': user_2, 'social': social, 'account_provider': account_provider, 'dem': dem, 'dem2': dem2, 'data123': data123})
 

@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User, auth
-from allauth.socialaccount.models import SocialApp, SocialToken
+from allauth.socialaccount.models import SocialApp, SocialToken, SocialAccount
 import requests
 from django.db import connection
 import json
 from core import settings
 import base64
 from time import gmtime, strftime
+from bs4 import BeautifulSoup
+from django.contrib.sites.models import Site
+import os
+from requests_oauthlib import OAuth1
+import urllib.parse
 
 
 class user_profile(models.Model):
@@ -90,6 +95,14 @@ class user_profile(models.Model):
         get_token = SocialApp.objects.only('client_id', 'secret').filter(provider = provider)
         return get_token
     
+    def get_id_twitter(provider):
+        get_token = SocialAccount.objects.only('id').filter(provider = provider)
+        return get_token
+    
+    def get_twitter_oauth1_token_secret(id):
+        id = SocialToken.objects.only('token', 'token_secret').filter(account_id = id)
+        return id
+    
     def get_token_app_accounts_user_logded(user_logged_accounts):
         cursor = connection.cursor()
         cursor.execute("SELECT socialaccount_socialaccount.provider, socialaccount_socialaccount.uid, socialaccount_socialaccount.id, socialaccount_socialtoken.token FROM socialaccount_socialaccount JOIN socialaccount_socialtoken ON socialaccount_socialaccount.id = socialaccount_socialtoken.account_id WHERE user_id =" + str(user_logged_accounts))
@@ -121,12 +134,32 @@ class user_profile(models.Model):
 
         return array_list
     
+    def get_bear_token_twitter(token_client_id_twitter, token_secret_id_twitter):
+        payload='grant_type=client_credentials'
+        headers = {
+            'Authorization': 'Basic ' + base64.b64encode(bytes(token_client_id_twitter+':'+token_secret_id_twitter, "utf-8")).decode(),
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+                
+        response = requests.request("POST", settings.LINK_OAUTH_TWITTER, headers=headers, data=payload)
+        if(response.json()['access_token']):
+            return response.json()['access_token']
+        else:
+            return 'Lỗi'
+    
+    def get_uid_linkedin_oauth2(provider):
+        uid = ''
+        abc = SocialAccount.objects.only('uid').filter(provider = provider)
+        for i in abc:
+            uid = str(i.uid)
+        return uid
+        
 
 class user_Post(models.Model):
     user_id = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     array_app = models.TextField(null=True)
-    array_img = models.TextField(null=True)
-    tag = models.TextField(null=True)
+    array_img = models.TextField(null=True, default='')
+    tag = models.TextField(null=True, default='')
     link = models.TextField(null=True)
     date_up = models.CharField(null=True, max_length=255, default='')
     time_up = models.CharField(null=True, max_length=255, default='')
@@ -134,7 +167,93 @@ class user_Post(models.Model):
     title = models.CharField(null=True, max_length=255)
     create_at = models.DateTimeField(auto_now=strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     activated = models.BooleanField(default=False)
-    id_app_post = models.TextField(default='')
+    id_app_post = models.TextField(null=True, default='')
+    
+    def tag_facebook(tag):
+        tag = str(tag).split(',')
+        dem_tag = len(tag)
+        for i in range(0,dem_tag):
+            tag[i] = '%23'+tag[i]
+        tag = ' '.join(tag)
+        return '\n'+tag
+    
+    def post_link(provider, textbody, link, tag, token, title):
+        
+        if(provider == 'facebook'):
+            abc = requests.post(settings.LINK_API_FB + 'me/feed?message=' + str(textbody).replace('#', '%23') + user_Post.tag_facebook(tag) + '&link='+link+'&access_token=' + token).json()
+            if(abc['id']):
+                return abc['id'] 
+            else:
+                return 'Lỗi'
+        if(provider == 'twitter'):
+            token_client_id_twitter = ''
+            token_secret_id_twitter = ''
+            id_twitter = 0
+            token_client_id_twitter1 = ''
+            token_secret_id_twitter2 = ''
+            
+            for a in user_profile.get_token_twitter('twitter'):
+                token_client_id_twitter = a.client_id
+                token_secret_id_twitter = a.secret
+            for i in user_profile.get_id_twitter('twitter'):
+                id_twitter = i.id
+            for i in user_profile.get_twitter_oauth1_token_secret(id_twitter):
+                token_client_id_twitter1 = i.token
+                token_secret_id_twitter2 = i.token_secret
+            
+            url = settings.LINK_API_TWITTER + 'statuses/update.json?status=' + urllib.parse.quote_plus(textbody) + user_Post.tag_facebook(tag)
+            auth = OAuth1(token_client_id_twitter, token_secret_id_twitter, token_client_id_twitter1, token_secret_id_twitter2)
+            abc = requests.post(url, auth=auth).json()
+            if(abc['id_str']):
+                return abc['id_str']
+            else:
+                return 'Looix'
+                
+            #print(token_client_id_twitter + '|' + token_secret_id_twitter + '|' + token_client_id_twitter1 + '|' + token_secret_id_twitter2)
+            
+        if(provider == 'linkedin_oauth2'):
+            url = settings.LINK_API_LINKEDIN + "shares"
+            payload = json.dumps({
+                "content": {
+                    "contentEntities": [
+                    {
+                        "entityLocation": link,
+                        "thumbnails": [
+                        {
+                            "resolvedUrl": ""
+                        }
+                        ]
+                    }
+                    ],
+                    "title": title
+                },
+                "distribution": {
+                    "linkedInDistributionTarget": {}
+                },
+                "owner": "urn:li:person:" + user_profile.get_uid_linkedin_oauth2(provider),
+                "subject": title,
+                "text": {
+                    "text": textbody + str(user_Post.tag_facebook(tag)).replace('%23', '#')
+                }
+            })
+            headers = {
+                'Authorization': 'Bearer ' +  token,
+                'Content-Type': 'application/json',
+            }
+            response = requests.request("POST", url, headers=headers, data=payload)
+            if(response.json()['activity']):
+                return response.json()['activity']
+            else:
+                return 'Lỗi'
+                
+        
+        
+
+
+        
+    
+        
+    
     
     
 
